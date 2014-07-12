@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AnnotatedSqlDemo</string>
+    <string name="action_add">Add</string>
+
+    <string name="add_post">Type post here</string>
+    <string name="add_comment">Type comment here</string>
+
+    <string name="posts_empty">Use "+" to add posts</string>
+    <string name="comments_empty">Press "Reply" to add the first comment</string>
+
+    <string name="posts_title">Posts</string>
+    <string name="comments_title">Comments</string>
+
+</resources>
