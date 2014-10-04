@@ -1,10 +1,11 @@
 buildscript {
     repositories {
         mavenCentral()
+        mavenLocal()
     }
     dependencies {
         //plugin to connect apt libs
-        classpath 'com.github.hamsterksu:android-aptlibs-gradle-plugin:1.1.0'
+        classpath 'com.github.hamsterksu:android-aptlibs-gradle-plugin:1.2.0'
     }
 }
 
@@ -39,22 +40,36 @@ configurations {
     apt
 }
 
-ext.asVersion = '1.9.0'
+ext.asVersion = '1.10.2'
+ext.asPluginVersion = '1.0.9'
 ext.groundyVersion = '1.5'
 
 repositories{
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.github.hamsterksu:android-annotatedsql-api:${asVersion}"
     compile "com.telly:groundy:${groundyVersion}"
+
+    //plugin annotations
+    compile "com.hamsterksu.testplugin:test-plugin-api:${asPluginVersion}"
 }
 
 aptlibs {
+
     annotatedSql {
-        version "${asVersion}"
+        version = "${asVersion}"
+        logLevel = 'INFO'
+        plugins {
+            cursorWrapperPlugin{
+                version = '1.0.9'
+                dependencies = ["com.hamsterksu.testplugin:test-plugin-api:${version}", "com.hamsterksu.testplugin:test-plugin-processor:${version}"]
+                plugin = "com.hamsterksu.testplugin.CursorWrapperPlugin"
+            }
+        }
     }
 
     groundy{

@@ -3,7 +3,6 @@ package hamsterksu.demo;
 import android.app.Activity;
 import android.os.Bundle;
 
-import hamsterksu.demo.cmd.AddPostCommand;
 import hamsterksu.demo.ui.AddPostFragment;
 import hamsterksu.demo.ui.CommentsListFragment;
 import hamsterksu.demo.ui.CommentsListFragment.ICommentsActionListener;
@@ -11,7 +10,7 @@ import hamsterksu.demo.ui.PostsListFragment;
 import hamsterksu.demo.ui.PostsListFragment.IPostActionListener;
 
 
-public class PostsActivity extends Activity implements IPostActionListener, ICommentsActionListener{
+public class PostsActivity extends Activity implements IPostActionListener, ICommentsActionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,6 +1,7 @@
 package hamsterksu.demo.store;
 
 import com.annotatedsql.annotation.provider.Provider;
+import com.annotatedsql.annotation.provider.Providers;
 import com.annotatedsql.annotation.provider.URI;
 import com.annotatedsql.annotation.sql.Autoincrement;
 import com.annotatedsql.annotation.sql.Column;
@@ -13,22 +14,29 @@ import com.annotatedsql.annotation.sql.PrimaryKey;
 import com.annotatedsql.annotation.sql.Schema;
 import com.annotatedsql.annotation.sql.SimpleView;
 import com.annotatedsql.annotation.sql.Table;
+import com.hamsterksu.testplugin.annotation.CursorType;
+import com.hamsterksu.testplugin.annotation.CursorWrapper;
 
 /**
  * Created by hamsterksu on 12.07.2014.
  */
-@Provider(name = "PostsProvider", schemaClass = "PostSchema", authority = "hamsterksu.demo.AUTHORITY")
+@Providers({
+        @Provider(name = "PostsProvider", schemaClass = "PostSchema", authority = "hamsterksu.demo.AUTHORITY"),
+        @Provider(name = "PostsProvider2", schemaClass = "PostSchema", authority = "hamsterksu.demo.AUTHORITY2")
+})
+
 @Schema(className = "PostSchema", dbName = "posts.db", dbVersion = 1)
 public interface PostStore {
 
     /**
      * we can use inheritance
      */
-    public static interface BaseTable{
+    public static interface BaseTable {
 
         @PrimaryKey
         @Autoincrement
         @Column(type = Type.INTEGER)
+        @CursorType(int.class)
         String ID = "_id";
 
         @Column(type = Type.TEXT)
@@ -36,7 +44,8 @@ public interface PostStore {
     }
 
     @Table(PostTable.TABLE_NAME)
-    public static interface PostTable extends BaseTable{
+    @CursorWrapper
+    public static interface PostTable extends BaseTable {
 
         String TABLE_NAME = "post";
 
@@ -46,7 +55,7 @@ public interface PostStore {
     }
 
     @Table(CommentTable.TABLE_NAME)
-    public static interface CommentTable extends BaseTable{
+    public static interface CommentTable extends BaseTable {
 
         String TABLE_NAME = "comment";
 
@@ -66,7 +75,7 @@ public interface PostStore {
      * we want to calculate comments in post. we will use group by PostTable.ID
      */
     @SimpleView(PostsView.VIEW_NAME)
-    public static interface PostsView{
+    public static interface PostsView {
 
         //VIEW_NAME - required field!!!
         String VIEW_NAME = "post_view";
