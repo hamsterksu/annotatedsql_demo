@@ -15,8 +15,6 @@ import com.annotatedsql.annotation.sql.Schema;
 import com.annotatedsql.annotation.sql.SimpleView;
 import com.annotatedsql.annotation.sql.Table;
 import com.hamsterksu.asql.projections.Projection;
-import com.hamsterksu.testplugin.annotation.CursorType;
-import com.hamsterksu.testplugin.annotation.CursorWrapper;
 
 import hamsterksu.demo.store.PostSchema2.PostsView2;
 import hamsterksu.demo.store.PostSchema2.PostsView2.PostTable;
@@ -41,7 +39,7 @@ public interface PostStore {
         @PrimaryKey
         @Autoincrement
         @Column(type = Type.INTEGER)
-        @CursorType(int.class)
+        //@CursorType(int.class)
         String ID = "_id";
 
         @Column(type = Type.TEXT)
@@ -52,7 +50,7 @@ public interface PostStore {
     }
 
     @Table(PostTable.TABLE_NAME)
-    @CursorWrapper
+    //@CursorWrapper
     public static interface PostTable extends BaseTable {
 
         String TABLE_NAME = "post";

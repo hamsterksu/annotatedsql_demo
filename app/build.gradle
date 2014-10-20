@@ -1,7 +1,7 @@
 buildscript {
     repositories {
         mavenCentral()
-        mavenLocal()
+        //mavenLocal()
     }
     dependencies {
         //plugin to connect apt libs
@@ -40,7 +40,7 @@ configurations {
     apt
 }
 
-ext.asVersion = '1.10.+'
+ext.asVersion = '1.10.2'
 ext.asPluginVersion = '1.0.9'
 ext.asProjectionPluginVersion = '1.0.+'
 ext.groundyVersion = '1.5'
@@ -48,7 +48,7 @@ ext.aaVersion = '3.0.1'
 
 repositories{
     mavenCentral()
-    mavenLocal()
+    //mavenLocal()
 }
 
 dependencies {
@@ -59,7 +59,7 @@ dependencies {
     compile "com.telly:groundy:${groundyVersion}"
 
     //plugin annotations
-    compile "com.hamsterksu.testplugin:test-plugin-api:${asPluginVersion}"
+    //compile "com.hamsterksu.testplugin:test-plugin-api:${asPluginVersion}"
 
     compile "com.github.hamsterksu:projection-plugin-api:${asProjectionPluginVersion}"
 }
