@@ -20,6 +20,7 @@ import hamsterksu.demo.store.PostStore.PostsView;
 import hamsterksu.demo.store.PostsProvider.UriBuilder;
 import hamsterksu.demo.store.Projections;
 import hamsterksu.demo.store.Projections.PostsViewQuery;
+import hamsterksu.demo.store.Projections.PostsViewQuery.PostWithComments;
 
 /**
  * Created by hamsterksu on 12.07.2014.
@@ -93,7 +94,7 @@ public class PostsListFragment extends CursorListFragment {
             //c.getString(COLUMN_COUNT) - no need to get int, we just need String
             text.setText(String.format("%s (%s)",
                     c.getString(PostsViewQuery.PostWithComments.INDEX_POSTTABLE_TEXT),
-                    c.getString(PostsViewQuery.PostWithComments.INDEX_POSTTABLE_ID)));
+                    c.getString(PostWithComments.INDEX_COMMENTS_COUNT)));
         }
     }
 
