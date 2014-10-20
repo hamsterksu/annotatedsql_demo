@@ -5,6 +5,7 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.widget.ResourceCursorAdapter;
 
 /**

@@ -14,8 +14,13 @@ import com.annotatedsql.annotation.sql.PrimaryKey;
 import com.annotatedsql.annotation.sql.Schema;
 import com.annotatedsql.annotation.sql.SimpleView;
 import com.annotatedsql.annotation.sql.Table;
+import com.hamsterksu.asql.projections.Projection;
 import com.hamsterksu.testplugin.annotation.CursorType;
 import com.hamsterksu.testplugin.annotation.CursorWrapper;
+
+import hamsterksu.demo.store.PostSchema2.PostsView2;
+import hamsterksu.demo.store.PostSchema2.PostsView2.PostTable;
+
 
 /**
  * Created by hamsterksu on 12.07.2014.
@@ -41,6 +46,9 @@ public interface PostStore {
 
         @Column(type = Type.TEXT)
         String TEXT = "description";
+
+        @Projection
+        String PROJECTION_ALL = "All";
     }
 
     @Table(PostTable.TABLE_NAME)
@@ -69,6 +77,10 @@ public interface PostStore {
         //notify relative uris about changes in the tables
         @URI(altNotify = {PostsView.CONTENT_URI, CommentTable.CONTENT_URI_BY_POST})
         String CONTENT_URI = "comment";
+
+
+        @Projection(CommentTable.POST_ID)
+        String PROJECTION_TEST = "POST_TEST";
     }
 
     /**
@@ -91,5 +103,15 @@ public interface PostStore {
         @Columns(CommentTable.ID)
         @Join(type = Join.Type.LEFT, joinTable = CommentTable.TABLE_NAME, joinColumn = CommentTable.POST_ID, onTableAlias = TABLE_POST, onColumn = PostTable.ID)
         String TABLE_COMMENT = "comment_table";
+
+        @Projection({
+                PostsView2.PostTable.ID,
+                PostsView2.PostTable.TEXT,
+                "count(" + PostsView2.CommentTable.ID + ") as comments_count"})
+        String PROJECTION_POST_WITH_COMMENTS = "PostWithComments";
+
+        @Projection
+        String PROJECTION_ALL = "All";
     }
+
 }

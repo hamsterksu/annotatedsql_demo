@@ -17,16 +17,14 @@ import hamsterksu.demo.R;
 import hamsterksu.demo.store.PostSchema2.PostsView2.CommentTable;
 import hamsterksu.demo.store.PostSchema2.PostsView2.PostTable;
 import hamsterksu.demo.store.PostStore.PostsView;
-import hamsterksu.demo.store.PostsProvider;
+import hamsterksu.demo.store.PostsProvider.UriBuilder;
+import hamsterksu.demo.store.Projections;
+import hamsterksu.demo.store.Projections.PostsViewQuery;
 
 /**
  * Created by hamsterksu on 12.07.2014.
  */
 public class PostsListFragment extends CursorListFragment {
-
-    private static final String[] PROJECTION = new String[]{PostTable.ID, PostTable.TEXT, "count (" + CommentTable.ID + ") as cc"};
-    private static final int COLUMN_TEXT = 1;
-    private static final int COLUMN_COUNT = 2;
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
@@ -59,8 +57,8 @@ public class PostsListFragment extends CursorListFragment {
         //will generate query like
         // select post_table.id, post_table.text, count(comment_table.id) as cc from post_view group by post_table.id
         return new CursorLoader(getActivity(),
-                PostsProvider.contentUriGroupBy(PostsView.CONTENT_URI, PostTable.ID),
-                PROJECTION,
+                UriBuilder.contentUriGroupBy(PostsViewQuery.CONTENT_URI, PostTable.ID),
+                PostsViewQuery.PostWithComments.PROJECTION,
                 null, null, null);
 
     }
@@ -93,7 +91,9 @@ public class PostsListFragment extends CursorListFragment {
         public void bindView(View view, Context context, Cursor c) {
             TextView text = (TextView) view;
             //c.getString(COLUMN_COUNT) - no need to get int, we just need String
-            text.setText(String.format("%s (%s)", c.getString(COLUMN_TEXT), c.getString(COLUMN_COUNT)));
+            text.setText(String.format("%s (%s)",
+                    c.getString(PostsViewQuery.PostWithComments.INDEX_POSTTABLE_TEXT),
+                    c.getString(PostsViewQuery.PostWithComments.INDEX_POSTTABLE_ID)));
         }
     }
 

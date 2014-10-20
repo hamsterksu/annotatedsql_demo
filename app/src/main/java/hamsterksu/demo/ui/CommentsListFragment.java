@@ -1,6 +1,5 @@
 package hamsterksu.demo.ui;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
@@ -14,8 +13,9 @@ import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
 import hamsterksu.demo.R;
-import hamsterksu.demo.store.PostStore.CommentTable;
-import hamsterksu.demo.store.PostsProvider;
+import hamsterksu.demo.store.PostsProvider.UriBuilder;
+import hamsterksu.demo.store.Projections.CommentTableQuery;
+import hamsterksu.demo.store.Projections.CommentTableQuery.All;
 
 /**
  * Created by hamsterksu on 12.07.2014.
@@ -96,8 +96,8 @@ public class CommentsListFragment extends CursorListFragment {
 
         //2. smart uri
         return new CursorLoader(getActivity(),
-                PostsProvider.contentUri(CommentTable.CONTENT_URI_BY_POST, postId),
-                null,
+                UriBuilder.contentUri(CommentTableQuery.CONTENT_URI_BY_POST, postId),
+                All.PROJECTION,
                 null, null, null);
     }
 
@@ -110,7 +110,7 @@ public class CommentsListFragment extends CursorListFragment {
         @Override
         public void bindView(View view, Context context, Cursor c) {
             TextView text = (TextView) view;
-            text.setText(c.getString(c.getColumnIndex(CommentTable.TEXT)));
+            text.setText(c.getString(All.INDEX_TEXT));
         }
     }
 

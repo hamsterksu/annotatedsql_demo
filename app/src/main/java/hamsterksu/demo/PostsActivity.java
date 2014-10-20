@@ -3,6 +3,8 @@ package hamsterksu.demo;
 import android.app.Activity;
 import android.os.Bundle;
 
+import org.androidannotations.annotations.EActivity;
+
 import hamsterksu.demo.ui.AddPostFragment;
 import hamsterksu.demo.ui.CommentsListFragment;
 import hamsterksu.demo.ui.CommentsListFragment.ICommentsActionListener;
